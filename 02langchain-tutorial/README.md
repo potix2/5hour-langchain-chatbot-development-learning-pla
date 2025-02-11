@@ -1,6 +1,7 @@
 # LangChain Tutorial Project
 
-シンプルなLangChainチャットボットのプロジェクトです。
+https://python.langchain.com/docs/tutorials/chatbot/
+のチュートリアルを実装したプロジェクトです。
 
 ## セットアップ
 
@@ -9,11 +10,6 @@
 ```bash
 # 仮想環境の作成
 python -m venv venv
-
-# 仮想環境のアクティベート
-# Windows の場合:
-venv\Scripts\activate
-# macOS/Linux の場合:
 source venv/bin/activate
 ```
 

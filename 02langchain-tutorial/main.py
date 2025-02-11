@@ -1,40 +1,22 @@
 import os
-from typing import List
 from dotenv import load_dotenv
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import (
-    AIMessage,
-    HumanMessage,
-    SystemMessage
-)
+from langchain.chat_models import init_chat_model
+from langchain_core.messages import HumanMessage, AIMessage
 
-def main():
-    # Load environment variables
-    load_dotenv()
-    
-    if not os.getenv("OPENAI_API_KEY"):
-        print("Error: OPENAI_API_KEY not found in environment variables")
-        return
+# 環境変数を読み込む
+load_dotenv()
 
-    try:
-        # Initialize the chat model
-        chat = ChatOpenAI(
-            model="gpt-3.5-turbo",
-            temperature=0.7
-        )
+if not os.environ.get("OPENAI_API_KEY"):
+    print("Error: OPENAI_API_KEY not found in environment variables")
+    exit(1)
 
-        # Create messages
-        messages: List = [
-            SystemMessage(content="You are a helpful AI assistant."),
-            HumanMessage(content="What is LangChain?")
-        ]
+model = init_chat_model("gpt-4o-mini", model_provider="openai")
 
-        # Get response
-        response = chat(messages)
-        print(response.content)
-
-    except Exception as e:
-        print(f"Error occurred: {str(e)}")
-
-if __name__ == "__main__":
-    main() 
+response = model.invoke(
+    [
+    HumanMessage(content="Hi! I'm Bob."),
+    AIMessage(content="Hi Bob! How can I assist you today?"),
+    HumanMessage(content="What's my name?")
+    ]
+    )
+print(response.content)
