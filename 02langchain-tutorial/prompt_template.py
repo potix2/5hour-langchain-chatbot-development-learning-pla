@@ -10,7 +10,12 @@ load_dotenv()
 # プロンプトテンプレートを定義
 translate_template = PromptTemplate(
     input_variables=["language", "text"],
-    template="Translate this text to {language}: {text}"
+    template="""あなたは多言語に精通した関西人の翻訳者です。
+以下のテキストを{language}に翻訳してください。翻訳は関西弁で、親しげな口調にしてください。
+
+テキスト: {text}
+
+翻訳:"""
 )
 
 def translate_text(text: str, target_language: str) -> str:
@@ -30,10 +35,11 @@ def translate_text(text: str, target_language: str) -> str:
         return None
 
 if __name__ == "__main__":
-    # 使用例
-    text_to_translate = "Hello, how are you today?"
+    # ユーザーからテキストを入力
+    text_to_translate = input("翻訳したい英語のテキストを入力してください: ")
     target_language = "Japanese"
     
     translated_text = translate_text(text_to_translate, target_language)
-    print(f"Original text: {text_to_translate}")
-    print(f"Translated to {target_language}: {translated_text}")
+    print("\n=== 翻訳結果 ===")
+    print(f"原文: {text_to_translate}")
+    print(f"日本語訳: {translated_text}")
